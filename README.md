@@ -67,9 +67,91 @@ ssh mpiuser@<ip_address>
 ```
 - Ta nhập mật khẩu của user và mật khẩu khóa (nếu cần)
 
-### Bước 2: Cài đặt NFS server trên máy master và NFS client trên các máy slaves
+### Bước 2: Cài đặt NFS server trên máy master và NFS client trên các máy slaves (Network File System)
 - Trên máy master, ta cài đặt NFS master
 ```ssh
 sudo apt install nfs-kernel-server
 ```
+
+- Tạo thư mục chung cho việc chia sẻ file
+```
+sudo mkdir -p /home/mpiuser/Desktop/sharedfolder
+```
+
+- Thay đổi quyền của folder dùng chung
+```
+sudo chown nobody:nogroup /home/mpiuser/Desktop/sharedfolder
+sudo chmod 777 /home/mpiuser/Desktop/sharedfolder
+```
+
+- Sửa file /etc/exports, thêm 2 dòng sau
+```
+/home/mpiuser/Desktop/sharedfolder <slave1IP>(rw, sync, no_subtree_check)
+/home/mpiuser/Desktop/sharedfolder <slave2IP>(rw, sync, no_subtree_check)
+/home/mpiuser/Desktop/sharedfolder <slave3IP>(rw, sync, no_subtree_check)
+```
+
+- Sau đó exports thư mục dùng chung
+```
+sudo exports -a
+```
+
+- Restart NFS server
+```
+sudo systemctl restart nfs-kernel-server
+```
+
+- Kiểm tra firewall
+```
+sudo ufw status
+```
+
+- Trên máy slave, ta cài đặt NFS client 
+```ssh
+sudo apt install nfs-common
+```
+
+- Tạo thư mục 
+```
+sudo mkdir -p /home/mpiuser/Desktop/sharedfolder
+```
+
+- Mount shared folder (tại các slave) to sharedfolder (tại master)
+```
+sudo mount <serverIP>:/home/mpiuser/Desktop/sharedfolder /home/mpiuser/Desktop/sharedfolder
+```
+
+### Bước 3: Cài đặt OpenMPI
+- Cài đặt gcc cho tất cả các máy
+```
+sudo apt install gcc
+```
+
+- Cài đặt một vài thư viện cần thiết
+```
+sudo apt install openmpi-bin openmpi-common libopenmpi-dev libgtk2.0-dev
+```
+
+- Download và giải nén openmpi cho các máy, truy cập open-mpi.org, download open-mpi, [openmpi-5.0.2.tar.gz](https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.2.tar.gz), sau đó copy file này tới /home/mpiuser/Desktop, sau đó tới thư mục /home/mpiuser/Desktop và giải nén
+```
+tar -xvf /home/mpiuser/Desktop/<file_name>
+```
+
+- Truy cập /home/mpiuser/Desktop/openmpi-<version>, sau đó chạy 3 lệnh
+```
+./configure --prefix="/home/mpiuse/.openmpi"
+make
+sudo make install
+```
+- Export PATH
+```
+export PATH="$PATH:/home/mpiuser/.openmpi/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/mpiuser/.openmpi/lib"
+```
+
+- Test bằng cách chạy mpirun hoặc mpicc (Hệ thống biết có lệnh mpirun là được)
+```
+mpirun
+```
+
 
