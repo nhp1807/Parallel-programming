@@ -67,5 +67,9 @@ ssh mpiuser@<ip_address>
 ```
 - Ta nhập mật khẩu của user và mật khẩu khóa (nếu cần)
 
-### Bước 2: 
+### Bước 2: Cài đặt NFS server trên máy master và NFS client trên các máy slaves
+- Trên máy master, ta cài đặt NFS master
+```ssh
+service ssh restart
+```
 
