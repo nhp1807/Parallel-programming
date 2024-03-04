@@ -137,7 +137,7 @@ sudo apt install openmpi-bin openmpi-common libopenmpi-dev libgtk2.0-dev
 tar -xvf /home/mpiuser/Desktop/<file_name>
 ```
 
-- Truy cập /home/mpiuser/Desktop/openmpi-<version>, sau đó chạy 3 lệnh
+- Truy cập /home/mpiuser/Desktop/openmpi-version, sau đó chạy 3 lệnh
 ```
 ./configure --prefix="/home/mpiuse/.openmpi"
 make
