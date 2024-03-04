@@ -178,7 +178,6 @@ mpicc <mpi_file> -o ./outputfile
 - Chạy cụm, máy master tới sharedfolder, sau đó chạy
 ```
 mpirun --hostfile /etc/host -np 5 ./outputfile
-
 ```
 
 - Tại máy slave, chạy lệnh (Kiểm tra xem có process tên là outputfile chưa)
