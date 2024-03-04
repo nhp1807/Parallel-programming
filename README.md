@@ -153,5 +153,35 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/mpiuser/.openmpi/lib"
 ```
 mpirun
 ```
+### Bước 4: Chạy Test
+- Tại máy master, sửa file /etc/hosts
+```
+127.0.0.1 localhost
+<slaveIP1> slave1
+<slaveIP2> slave2
+<slaveIP3> slave3
+```
 
+- Tại máy slave, sửa file /etc/hosts
+```
+127.0.0.1 localhost
+<masterIP> master
+```
 
+- Dịch file mpi
+- Tại máy master, tải ví dụ từ dropbox [Link](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbTYtMXlGcHQ3NVRBRGdwTEp6RmRNb2lJUXhNd3xBQ3Jtc0ttU09LbkxldnJ0QklBNnlFOUpNM0FSdVRwV0lVY19QWUIwTG1DTXROQ25DY0V3UmZPaWZwYWNOZlZNYWdmMXRMWW5vcHJHaW1fMnVrLVJrNDVmSEdJaFk1NHdaWk5jeTBJc2o1NnIxSUJHNUdfc1BBSQ&q=https%3A%2F%2Fwww.dropbox.com%2Fsh%2Fmhwg5n9oajtme98%2FAAAAlCd5GQDRP9WdMe13Ydija%3Fdl%3D0%26preview%3Dmpi-prime.c&v=HLTm5-bVt7c), sau đó chạy
+```
+mpicc <mpi_file> -o ./outputfile
+```
+- Sau đó copy outputfile tới sharedfolder, các slave kiểm tra xem đã có file ở trên sharedfolder chưa
+
+- Chạy cụm, máy master tới sharedfolder, sau đó chạy
+```
+mpirun --hostfile /etc/host -np 5 ./outputfile
+
+```
+
+- Tại máy slave, chạy lệnh (Kiểm tra xem có process tên là outputfile chưa)
+```
+top
+```
