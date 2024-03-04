@@ -70,6 +70,6 @@ ssh mpiuser@<ip_address>
 ### Bước 2: Cài đặt NFS server trên máy master và NFS client trên các máy slaves
 - Trên máy master, ta cài đặt NFS master
 ```ssh
-service ssh restart
+sudo apt install nfs-kernel-server
 ```
 
