@@ -93,7 +93,7 @@ sudo chmod 777 /home/mpiuser/Desktop/sharedfolder
 
 - Sau đó exports thư mục dùng chung
 ```
-sudo exports -a
+sudo exportfs -a
 ```
 
 - Restart NFS server
@@ -177,7 +177,7 @@ mpicc <mpi_file> -o ./outputfile
 
 - Chạy cụm, máy master tới sharedfolder, sau đó chạy
 ```
-mpirun --hostfile /etc/host -np 5 ./outputfile
+mpirun --hostfile /etc/hosts -np 5 ./outputfile
 ```
 
 - Tại máy slave, chạy lệnh (Kiểm tra xem có process tên là outputfile chưa)
