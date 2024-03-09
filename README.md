@@ -139,7 +139,7 @@ tar -xvf /home/mpiuser/Desktop/<file_name>
 
 - Truy cập /home/mpiuser/Desktop/openmpi-version, sau đó chạy 3 lệnh
 ```
-./configure --prefix="/home/mpiuse/.openmpi"
+./configure --prefix="/home/mpiuser/.openmpi"
 make
 sudo make install
 ```
