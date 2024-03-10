@@ -144,8 +144,12 @@ make
 sudo make install
 ```
 - Export PATH
+- Thêm 2 dòng sau vào cuối file .bashrc và lưu lại
 ```
-export PATH="$PATH:/home/mpiuser/.openmpi/bin"
+sudo nano .bashrc
+```
+```
+export PATH="/home/mpiuser/.openmpi/bin:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/mpiuser/.openmpi/lib"
 ```
 
